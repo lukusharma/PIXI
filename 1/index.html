@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../node_modules/pixi.js/dist/browser/pixi.min.js"></script>
+<style>
+    *
+    {
+        margin: 0%;
+        padding: 0%;
+    }
+    #pr
+    {
+        position: fixed;
+        left: 0;
+        top: 0;
+        background-color: green;
+        height: 10px;
+        width: 0;
+        z-index: 1999;
+    }
+</style>
+</head>
+<body>
+    <div id="pr"></div>
+    <script>
+        console.log('pixi',PIXI);
+        const game = new PIXI.Application({
+            backgroundColor: 0xff0000,
+            width:innerWidth,
+            height:innerHeight
+        });
+        console.log('pixi instance',game);
+
+        const text = new PIXI.Text('Hello');
+        game.stage.addChild(text);
+        text.x=(innerWidth/2);
+        text.y=(innerHeight/2);
+        text.anchor.set(0.5);
+
+        game.loader.add('car','./car.png').load( ()=> {
+            document.body.appendChild(game.view);
+
+                const car = PIXI.Sprite.from('car');
+                game.stage.addChild(car);
+            }
+            );
+            
+            let p = document.getElementById("pr");
+        game.loader.onProgress.add((e)=>{
+            console.log('loaded',e.progress);
+            p.style.width=e.progress+"%";
+            if(e.progress===100){p.style.width=0;}
+        });
+        
+    </script>
+</body>
+</html>
