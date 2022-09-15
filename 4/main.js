@@ -4,8 +4,8 @@
 }
     const game = new PIXI.Application(
         {
-            width:1600,
-            height:950,
+            width:1800,
+            height:1900,
             backgroundColor: 0x3366ff
         }
     );
@@ -57,31 +57,54 @@ const one = new PIXI.Texture(resources['full'].texture,
             new PIXI.Rectangle(0,0,226,316));
 const on1 = PIXI.Sprite.from(one);
 // game.stage.addChild(on1);
-for(let k = 0; k < 1; k++)
+let newx = 10;
+    let newy = 10;
+for(let k = 0; k < 12; k++)
 {
-    let random1 = 2;
-    let random2 = 2;
+    let random1 = Math.floor(Math.random()*7);
+    let random2 = Math.floor(Math.random()*3);
     let rx = random1 * 225;
     let ry = random2 * 315;
-
-    for(let i = rx; i <= 1350; i += 225)
+    console.log("rx ",rx," ry ",ry);
+    
+    let two = new PIXI.Texture(resources['full'].texture,
+            new PIXI.Rectangle(rx, ry, 225,315));
+    let on2 = PIXI.Sprite.from(two);
+    // on2.anchor.set(0.5);
+    game.stage.addChild(on2);
+    on2.scale.set(0.5);
+    
+    on2.x += newx;
+    on2.y += newy;
+    if((newx+270) >= 1600)
     {
-        for(let j = rx; j <= 940; j += 315)
-        {
-            let two = new PIXI.Texture(resources['full'].texture,
-                    new PIXI.Rectangle(i, j, 226, 316));
-            let on2 = PIXI.Sprite.from(two);
-            game.stage.addChild(on2);
-            // console.log(arguments);
-            // on2.anchor.set(0.5);
-            on2.x = i;
-            on2.y = j;
-            on2.scale.set(0.9);
+        newy+=370;
+        newx = 10;
+    }
+    else{
+        newx += 270;
+    }
+    // newx+= 270;
+    // newy+= 370;
+}
+    // for(let i = rx; i <= 1350; i += 225)
+    // {
+    //     for(let j = rx; j <= 940; j += 315)
+    //     {
+    //         let two = new PIXI.Texture(resources['full'].texture,
+    //                 new PIXI.Rectangle(i, j, 226, 316));
+    //         let on2 = PIXI.Sprite.from(two);
+    //         game.stage.addChild(on2);
+    //         // console.log(arguments);
+    //         // on2.anchor.set(0.5);
+    //         on2.x = i;
+    //         on2.y = j;
+    //         on2.scale.set(0.9);
 
             
-        }
-    }
-}
+    //     }
+    // }
+
 }
 
 

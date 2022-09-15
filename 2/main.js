@@ -16,6 +16,7 @@ loadAssets(
     [
         {name:"cardImage" , url:"./assets/card1.png"},
         {name:"ev",url:"./assets/2.png"},
+        {name:"ev2",url:"./assets/back.jpg"},
     ],start
 );
 
@@ -45,10 +46,13 @@ function start(loader,resources)
 {
     console.log('params', arguments);
     const back = PIXI.Sprite.from(resources['cardImage'].texture);
-    // back.scale.set(0.6);
-    // const one = new PIXI.Texture(resources['cardImage'].texture,
-    //     new PIXI.Rectangle(57,190,150,200));
-    // const on1 = PIXI.Sprite.from(one);
+    back.scale.set(0.6);
+    const one = new PIXI.Texture(resources['cardImage'].texture,
+        new PIXI.Rectangle(57,190,150,200));
+    const on1 = PIXI.Sprite.from(one);
     game.stage.addChild(back);
-    // game.stage.addChild(on1);
+    game.stage.addChild(on1);
+    // const back2 = PIXI.Sprite.from(resources['ev2'].texture);
+    // game.stage.addChild(back2);
+
 }
