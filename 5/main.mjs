@@ -20,18 +20,7 @@ loadAssets(
 );
 
 // Progress Bar ---------------------
-const pBar = document.getElementById('bar'); 
-const pText = document.getElementById('progress');
-function preload(e)
-{
-pBar.style.width = e.progress * 2 + "%";
-pText.innerText = e.progress + "%";
-if(e.progress === 100)
-{
-    document.getElementById('loader').style.display = "none";
-    console.log("loaded");
-}
-};
+
 
 // array of all the assets that are to be loaded
 function loadAssets(list, onLoadComplete) // the list of assets to be loaded and what to do when loading is completed
@@ -87,6 +76,23 @@ for(let k = 0; k < 20; k++)
     // newx+= 270;
     // newy+= 370;
 }
+    // for(let i = rx; i <= 1350; i += 225)
+    // {
+    //     for(let j = rx; j <= 940; j += 315)
+    //     {
+    //         let two = new PIXI.Texture(resources['full'].texture,
+    //                 new PIXI.Rectangle(i, j, 226, 316));
+    //         let on2 = PIXI.Sprite.from(two);
+    //         game.stage.addChild(on2);
+    //         // console.log(arguments);
+    //         // on2.anchor.set(0.5);
+    //         on2.x = i;
+    //         on2.y = j;
+    //         on2.scale.set(0.9);
+
+            
+    //     }
+    // }
 
 }
 
