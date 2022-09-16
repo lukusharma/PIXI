@@ -59,7 +59,7 @@ const on1 = PIXI.Sprite.from(one);
 // game.stage.addChild(on1);
 let newx = 10;
     let newy = 10;
-for(let k = 0; k < 12; k++)
+for(let k = 0; k < 20; k++)
 {
     let random1 = Math.floor(Math.random()*7);
     let random2 = Math.floor(Math.random()*3);
