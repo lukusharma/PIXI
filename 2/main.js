@@ -52,6 +52,8 @@ function start(loader,resources)
     const on1 = PIXI.Sprite.from(one);
     game.stage.addChild(back);
     game.stage.addChild(on1);
+    on1.x = innerHeight/2;
+    on1.x = innerWidth/2;
     // const back2 = PIXI.Sprite.from(resources['ev2'].texture);
     // game.stage.addChild(back2);
 

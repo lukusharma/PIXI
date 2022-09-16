@@ -35,19 +35,24 @@
         });
         console.log('pixi instance',game);
 
-        const text = new PIXI.Text('Hello');
-        game.stage.addChild(text);
-        text.x=(innerWidth/2);
-        text.y=(innerHeight/2);
-        text.anchor.set(0.5);
+        
 
         game.loader.add('car','./car.png').load( ()=> {
             document.body.appendChild(game.view);
 
                 const car = PIXI.Sprite.from('car');
                 game.stage.addChild(car);
+                car.x = innerHeight/0.9;
+                car.y = innerWidth/4;
+                car.anchor.set(0.5);
+                const text = new PIXI.Text('Hello');
+        game.stage.addChild(text);
+        text.x=(innerWidth/2);
+        text.y=(innerHeight/1.9);
+        text.anchor.set(0.5);
             }
             );
+            
             
             let p = document.getElementById("pr");
         game.loader.onProgress.add((e)=>{
