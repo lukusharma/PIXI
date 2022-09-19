@@ -2,7 +2,7 @@
 // document.onload = () => // what will happen when a document competes loading ,i.e., downloading all the assets
 {
 }
-    const game = new PIXI.Application(
+    const game = new Application(
         {
             width:1800,
             height:1900,
