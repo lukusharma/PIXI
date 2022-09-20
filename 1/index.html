@@ -64,3 +64,176 @@
     </script>
 </body>
 </html>
+
+<!-- 
+https://pixijs.download/release/docs/PIXI.DisplayObject.html
+
+PixiJS:
+    is a rendering library that will allow you to create rich, interactive graphics, cross-platform applications, and games
+    PixiJS is a rendering system that uses WebGL (or optionally Canvas) to display images and other 2D visual content.
+    It provides a full scene graph (a hierarchy of objects to render), and provides interaction support to enable handling click and touch events.
+    not a Framework provides everything to build an application while pixi only provides some functions.
+    not a 3d renderer
+    not a mobile app
+    not an audio library
+
+WebGL:
+    is a JavaScript API for rendering interactive 2D and 3D graphics within any compatible web browser without the use of plug-ins.
+canvas: HTMLCanvasElement
+    The canvas element that everything is drawn to.
+PIXI:
+    load library: use script link in head
+    PIXI.Application:
+        wraps a Loader, Ticker and Renderer into a single, convenient easy-to-use object.
+        use library: let app = new PIXI.Application(); When the PIXI.Application class creates the renderer, it builds a Canvas element that it will render to.
+    In order to see what we draw with PixiJS, we need to add this Canvas element to the web page's DOM.
+          document.body.appendChild(app.view);
+
+PIXI.Renderer
+    The Renderer draws the scene and all its content onto a WebGL enabled canvas.
+
+Stage: 
+    A Stage represents the root of the display tree. Everything connected to the stage is rendered.
+    The stage is simply a Container that is the root of the scene graph. Every child of the stage container will be rendered every frame. By adding our sprite to the stage, we tell PixiJS's renderer we want to draw it.
+      app.stage.addChild(sprite);
+
+PIXI.ViewSystem:
+	This manages the main view of the renderer usually a Canvas
+
+Texture: 
+    A texture, broadly speaking, represents a source of pixels to be used to fill in an area on the screen
+    image mapped to a 2d entity
+    A texture is an image. But we call it "texture" because it has a very specific role: being mapped to a 2D entity. A sprite is nothing more than a textured rectangle.
+
+Manifest:
+    is a JSON file that contains a list of all assets and their properties.
+    Bundles are a way to group assets together.
+assets:
+    Allows users to background load assets. Shortening (or eliminating) load times and improving UX.
+    The Assets package is a modern replacement for the old PIXI.Loader class. It is a promise-based resource management solution that will download, cache and parse your assets into something you can use. The downloads can be simultaneous and in the background, meaning faster startup times for your app, the cache ensures that you never download the same asset twice and the extensible parser system allows you to easily extend and customize the process to your needs.
+
+A bitmap: 
+    (or raster graphic) is a digital image composed of a matrix of dots. When viewed at 100%, each dot corresponds to an individual pixel on a display.
+
+sprite:
+    a way to draw an image, a sprite is a two-dimensional bitmap that is integrated into a larger scene
+    They represent a single image to be displayed on the screen. Each Sprite contains a Texture to be drawn, along with all the transformation and display state required to function in the scene graph.
+    The Sprite object is the base for all textured objects that are rendered to the screen
+    A sprite can be created directly from an image like this:
+        import {  Sprite } from 'pixi.js';
+        const sprite = Sprite.from('assets/image.png');
+
+SpriteSheet:
+    A Spritesheet is a media format for more efficiently downloading and rendering Sprites.
+    spritesheet is to pack a series of images together into a single image
+    As this image is being created, the tool building it keeps track of the location of the rectangle where each source image is stored. It then writes out a JSON file with that information.
+    These two files, in combination, can be passed into a SpriteSheet constructor. 
+    speeding up the loading process
+    improving batch rendering
+
+ShoeBox: 
+    ShoeBox is a free, Adobe AIR-based sprite packing utility that is great for small projects or learning how SpriteSheets work.
+
+TexturePacker: 
+    TexturePacker is a more polished tool that supports advanced features and workflows. A free version is available which has all the necessary features for packing spritesheets for PixiJS. It's a good fit for larger projects and professional game development, or projects that need more complex tile mapping features.
+
+Ticker: Update loop
+    A ticker is a PixiJS object that runs one or more callbacks each frame.
+        // Add a variable to count up the seconds our demo has been running
+            let elapsed = 0.0;
+        // Tell our application's ticker to run a new callback every frame, passing
+        // in the amount of time that has passed since the last tick
+            app.ticker.add((delta) => {
+        // Add the time to our total elapsed time
+            elapsed += delta;
+        // Update the sprite's X position based on the cosine of our elapsed time.  We divide
+        // by 50 to slow the animation down a bit...
+            sprite.x = 100.0 + Math.cos(elapsed/50.0) * 100.0;
+            });
+
+Masking:
+    Another common use for Container objects is as hosts for masked content. "Masking" is a technique where parts of your scene graph are only visible within a given area.
+
+PIXI.Container:
+    Container is a general-purpose display object that holds children. It also adds built-in support for advanced rendering features like masking and filtering.
+        let container = new Container();
+        container.addChild(sprite);
+        // Blurs whatever is rendered by the container
+            container.filters = [new BlurFilter()];
+        // Only the contents within a circle at the center should be rendered onto the screen.
+            container.mask = new Graphics()
+            .beginFill(0xffffff)
+            .drawCircle(sprite.width / 2, sprite.height / 2, Math.min(sprite.width, sprite.height) / 2)
+            .endFill();
+    funtions:
+        children: array of all the children in the container
+        interactiveChildren: boolean
+        addChild: Adds one or more children to the container.
+        removeChild
+
+PIXI.Graphics:
+    The Graphics class is primarily used to render/build not draw primitive shapes such as lines, circles and rectangles to the display, and to color and fill them.
+        drawRect(), drawPolygon()
+        Line, Rect, RoundRect, Circle, Ellipse, Arc, Bezier and Quadratic Curve
+        let obj = new PIXI.Graphics();
+        obj.beginFill(0xff0000);
+        obj.drawRect(0, 0, 200, 100);
+
+PIXI.Text:
+    A Text Object will create a line or multiple lines of text.
+        let text = new PIXI.Text('This is a PixiJS text',{fontFamily : 'Arial', fontSize: 24, fill : 0xff1010, align : 'center'});
+
+PIXI.BitmapText:
+    all of your textures are pre-generated and loading, meaning that rendering is fast, and changing text has no performance implications.
+    can also use SDF, MSDF and MTSDF BitmapFonts for vector-like scaling appearance.
+
+PIXI.AnimatedSprite:
+    An AnimatedSprite is a simple way to display an animation depicted by a list of textures.
+      let sheet = PIXI.Loader.shared.resources["assets/spritesheet.json"].spritesheet;
+      animatedSprite = new PIXI.AnimatedSprite(sheet.animations["image_sequence"]); 
+      /// or-----
+        let alienImages = ["image_sequence_01.png","image_sequence_02.png","image_sequence_03.png","image_sequence_04.png"];
+        let textureArray = [];
+        for (let i=0; i < 4; i++)
+        {
+            let texture = PIXI.Texture.from(alienImages[i]);
+            textureArray.push(texture);
+        };
+
+let animatedSprite = new PIXI.AnimatedSprite(textureArray);
+    Functions:
+        onComplete: User-assigned function to call when an AnimatedSprite finishes playing. //  animation onComplete = function ()
+        loop: Whether or not the animate sprite repeats after playing.
+
+PIXI.NineSlicePlane:
+    The NineSlicePlane allows you to stretch a texture using 9-slice scaling. The corners will remain unscaled (useful for buttons with rounded corners for example) and the other areas will be scaled horizontally and or vertically
+     let Plane9 = new PIXI.NineSlicePlane(PIXI.Texture.from('BoxWithRoundedCorners.png'), 15, 15, 15, 15);
+
+Hit Testing:
+    Setting a hitArea allows you to customize what counts as a hit on your object. 
+        starButton2.hitArea = new PIXI.Polygon([
+    PixiJS Container-derived objects have a property named interactiveChildren
+
+Render Loop:
+    Ticker Callbacks: after each frame(specified time)
+    update the scene graph: to account for all the new positions after manipulation
+    render the scene graph: draw the scene graph again
+
+Render Order:
+    PixiJS renders the tree from the root down. At each level, the current object is rendered, then each child is rendered in order of insertion. So the second child is rendered on top of the first child, and the third over the second.
+
+Culling:
+    https://pixijs.io/guides/basics/scene-graph.html
+
+Local vs Global Coordinates:
+    https://pixijs.io/guides/basics/scene-graph.html
+
+Pivot vs Anchor
+    https://pixijs.io/guides/basics/sprites.html
+
+Text:
+    https://pixijs.io/guides/basics/text.html
+
+Some PIXI Functions:
+    sprite.anchor.set(0.5);
+    sprite.interactive = true; -->
